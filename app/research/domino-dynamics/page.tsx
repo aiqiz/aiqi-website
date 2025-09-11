@@ -105,7 +105,7 @@ export default function Page() {
         ),
       },
       {
-        title: '3D Appraoch',
+        title: '3D Approach',
         body: (
           <>
             <Figure
