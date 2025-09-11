@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light mode only, 3-color theme */
+:root {
+  --bg: #f7f7f8;   /* light grey */
+  --fg: #0f172a;   /* near-black text */
+  --card: #e5e7eb; /* grey for cards */
+}
+
+html, body { height: 100%; }
+body { color: var(--fg); background: var(--bg); @apply antialiased; }
+
+/* utility to allow per-card overrides via CSS vars */
+.card-surface { background: var(--card); }
+
