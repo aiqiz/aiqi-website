@@ -21,11 +21,9 @@ export default function Page() {
       {
         title: 'Idea Pitch Demo',
         body: (
-          <video
-            src="/figures/projects/hvac/video_demo.m4v"
-            controls
-            className="rounded-xl shadow w-full"
-            style={{ maxHeight: 480 }}
+          <VideoEmbed 
+              src="https://www.youtube-nocookie.com/embed/mpx_FO_WDWU?modestbranding=1&rel=0&playsinline=1"
+              title="HVAC" 
           />
         ),
       },

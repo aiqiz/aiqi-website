@@ -29,11 +29,9 @@ export default function Page() {
       {
         title: 'Demo Video',
         body: (
-          <video
-            src="/figures/projects/patchuolink/patchuolink.mp4"
-            controls
-            className="rounded-xl shadow w-full"
-            style={{ maxHeight: 480 }}
+          <VideoEmbed 
+              src="https://www.youtube-nocookie.com/embed/TVWjlOE97k4?modestbranding=1&rel=0&playsinline=1" 
+              title="patchuolink demo" 
           />
         ),
       },
@@ -121,17 +119,6 @@ export default function Page() {
                 </div>
             </div>
           </>
-        ),
-      },
-      {
-        title: 'Full system integration test',
-        body:(
-          <video
-            src="/figures/projects/patchuolink/Full_integration_video.MOV"
-            controls
-            className="rounded-xl shadow w-full"
-            style={{ maxHeight: 480 }}
-          />
         ),
       },
       {
