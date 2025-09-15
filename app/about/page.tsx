@@ -47,10 +47,11 @@ export default function AboutPage() {
     {
       title: "Research Interest",
       bullets: [
-        "Atmospheric and carbon cycle modeling across multiple spatial and temporal scales",
-        "Satellite remote sensing combined with machine learning driven data analysis",
-        "Experimental nonlinear physics, with data driven pattern analysis and modeling"
-      ],
+        "Atmospheric and carbon cycle modeling across diverse spatial and temporal scales",
+        "Remote sensing and time-series data processing integrated with machine learning–driven analysis",
+        "Urban environmental systems and their impact on climate and carbon dynamics",
+        "Experimental physics with a focus on data-driven pattern analysis and modeling"
+      ]
     },
     {
       title: "Experience & Past Projects",
@@ -76,7 +77,7 @@ export default function AboutPage() {
     {
       title: "General Interests",
       body: [
-        "As a teenager, I discovered nature photography, and it quickly became a passion I've carried with me ever since. Each photo is a glimpse of a short moment with the creatures I've been lucky enough to encounter."
+        "I first discovered nature photography as a teenager, and it has remained a lasting passion. Each photo captures a fleeting moment with the creatures I’ve been fortunate to encounter, and I've put together a small gallery for you to explore."
       ],
     },
   ];

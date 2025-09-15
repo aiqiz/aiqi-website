@@ -63,7 +63,7 @@ export default function Home() {
       <section className="grid gap-6 md:grid-cols-3 ">
         <Card title="About" desc={'Brief Bio\nResearch Interest\nGeneral Interets'} href="/about" />
         <Card title="Research" desc={'Environmental Science\nClassical Physics\nData Science\nMachine Learning'} href="/research" />
-        <Card title="Projects" desc={'Advanced Physics Lab\nHackathon\nEngineering Design Course'} href="/projects" />
+        <Card title="Projects" desc={'Engineering Design\nAdvanced Physics Lab\nHackathon'} href="/projects" />
       </section>
     </div>
   )

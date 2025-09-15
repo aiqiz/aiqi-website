@@ -10,20 +10,28 @@ export default function Page() {
       supervisor: 'Prof. Ania Harlick',
     },
     panel: true,
+    sections: [{
+        title: 'Note',
+        body: (
+          <>
+            <P>Specific details of this work are withheld to maintain the integrity of the Advanced Physics Lab course. For further information about my contributions and experience, please contact me directly.</P>
+          </>
+        ),
+      },
+    ]
   } as const
 
   return <ProjectPage config={config}/>
 }
 
 
-/*        <>
-            Presented poster at{' '}
-            <a
-            href="https://www.queensu.ca/wipc2025/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline hover:opacity-80"
-            >
-            Women+ in Physics Canada 2025
-            </a>
-        </>, */
+/*        sections: [
+      {
+        title: 'Highlight Contributions',
+        highlights: [
+          'Designed and implemented a full-stack data visualization and monitoring center, from SQL backend to Python-Django web interface.',
+          'Produced a demo video and documentation detailing the design concept, process, and final solution.',
+        ],
+      },
+    ],  
+ */

@@ -41,13 +41,9 @@ export default function Page() {
           <>
             <P>The opportunity space lies in tackling the soil degradation caused by patchouli cultivation, which often forces farmers to abandon and relocate farmland. By integrating IoT technologies into the growth phase, there is potential to guide more sustainable land management, improve crop yield and quality, and ultimately increase farmers' revenue. This space directly engages farmers as the main beneficiaries, with farm extension workers supporting adoption and knowledge transfer.</P>
             <P>We introduce Patchoulink, an advanced IoT system for real-time cultivation monitoring. Our prototype focuses on data flow through wireless communication, data management, storage, and analysis, with a user-friendly website interface. Our prototype focuses on data flow through wireless communication, data management, storage, and analysis, with a user-friendly website interface.</P>
-            <Figure
-              variant="full"
-              src="/figures/projects/patchuolink/System_Architecture.jpg"
-              alt="patchuolink system architecture"
-              width={1200}
-              height={600}
-              caption="Fig 1: System architecture diagram of Patchuolink, credit to Bella Semeniuk."
+            <iframe
+              src="/files/projects/patchuolink/patchuolink_visual.pdf"
+              style={{ width: "100%", height: 700, border: "none" }}
             />
             <P>Utilizing wireless communication, nodes in the field transmit data in real time. The data journey begins with capturing analog signals from the sensor, packaging the data with communication protocols, and converting it into digital signals for transmission. Once received, the data is decoded and stored in a structured backend database, which records node configurations.</P>
             <P>The heart of Patchoulink lies in its ability to analyze and present this data in a website interface. Here, farmers gain actionable insights, visualized with clarity and precision. Defined thresholds alert users to optimal growing conditions, ensuring informed decision-making. Further enhancing usability, Patchoulink features an OpenAI chatbot for immediate support, simplifying the translation of complex data into actionable farming strategies.</P>
@@ -66,7 +62,7 @@ export default function Page() {
               alt="patchuolink webpage dashboard"
               width={1200}
               height={600}
-              caption="Fig 2: Pachuolink webpage dashboard."
+              caption="Fig 1: Pachuolink webpage dashboard."
             />
             <div className="grid md:grid-cols-2 gap-6 my-6 items-start">
                 {/* Column 1 */}
@@ -77,7 +73,7 @@ export default function Page() {
                     width={600}
                     height={400}
                     variant="inline"
-                    caption="Fig 3: Dashboard page for overview of all information."
+                    caption="Fig 2: Dashboard page for overview of all information."
                     />
                 </div>
 
@@ -89,7 +85,7 @@ export default function Page() {
                     width={600}
                     height={400}
                     variant="inline"
-                    caption="Fig 4: Chatbot page for information integration and Q&A type of query."
+                    caption="Fig 3: Chatbot page for information integration and Q&A type of query."
                     />
                 </div>
             </div>
@@ -102,7 +98,7 @@ export default function Page() {
                     width={600}
                     height={400}
                     variant="inline"
-                    caption="Fig 5: Map page including measurement node's geographical location for easy view and check."
+                    caption="Fig 4: Map page including measurement node's geographical location for easy view and check."
                     />
                 </div>
 
@@ -114,7 +110,7 @@ export default function Page() {
                     width={600}
                     height={400}
                     variant="inline"
-                    caption="Fig 6: Update history page for all raw data table."
+                    caption="Fig 5: Update history page for all raw data table."
                     />
                 </div>
             </div>
