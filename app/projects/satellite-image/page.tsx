@@ -95,7 +95,6 @@ export default function Page() {
       },
     ],
     resources: [
-      { label: 'Report PDF', href: '/Users/aiqizhang/Desktop/zaq-website/public/figures/projects/satellite-image/APS360_Final_Report.pdf' },
       { label: 'GitHub Repo', href: 'https://github.com/yijie-04/APS360_Satellite_Image_Categorization' },
     ],
   } as const

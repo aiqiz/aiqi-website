@@ -31,8 +31,9 @@ export default function Page() {
             rel="noopener noreferrer"
             className="underline hover:opacity-80"
             >
-            Women+ in Physics Canada 2025
+            Women+ in Physics Canada 2025 
             </a>
+            {' '}(poster available in the bottom of the page.)
         </>,
         ],
       },
@@ -215,7 +216,7 @@ export default function Page() {
 
     ],
     resources: [
-      { label: 'Poster PDF', href: '/files/domino-poster.pdf' },
+      { label: 'Poster PDF', href: '/files/research/domino/WIPC+_Poster.pdf' },
       { label: 'GitHub Repo', href: 'https://github.com/aiqiz/DCE-CV' },
     ],
   } as const

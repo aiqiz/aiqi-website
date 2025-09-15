@@ -9,6 +9,16 @@ export default function Page() {
       tags: ['Nonlinear Physics', 'Wave Mechanics'],
       supervisor: 'Prof. Kaley Walker',
     },
+    panel: true,
+    sections: [{
+        title: 'Note',
+        body: (
+          <>
+            <P>Specific details of this work are withheld to maintain the integrity of the Advanced Physics Lab course. For further information about my contributions and experience, please contact me directly.</P>
+          </>
+        ),
+      },
+    ]
   } as const
 
   return <ProjectPage config={config}/>
