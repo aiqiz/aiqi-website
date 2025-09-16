@@ -19,7 +19,7 @@ export default function Header() {
           <Link href="/about" className="hover:underline">About</Link>
           <Link href="/research" className="hover:underline">Research</Link>
           <Link href="/projects" className="hover:underline">Projects</Link>
-          <Link href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="hover:underline">
+          <Link href="/files/Aiqi Zhang - CV.pdf" target="_blank" rel="noopener noreferrer" className="hover:underline">
             CV
           </Link>
         </nav>
