@@ -38,10 +38,11 @@ export default function AboutPage() {
 
   const bioSections: Array<BioSection> = [
     {
-      title: "Hi, I'm Aiqi.",
+      title: "Hi, my name is Aiqi Zhang.",
       body: [
         "I'm a fourth-year undergraduate student in Engineering Science (Major Engineering Physics, Minor Artificial Intelligence) at the University of Toronto.",
-        "I am passionate about developing engineering tools that reveal hidden patterns in the physical world and advancing our understanding of complex systems through data analysis and modeling."
+        "I am passionate about developing engineering tools that reveal hidden patterns in the physical world and advancing our understanding of complex systems through data analysis and modeling.",
+        "My name is roughly pronouced as I-key."
       ],
     },
     {
