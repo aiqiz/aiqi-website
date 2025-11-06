@@ -26,7 +26,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-3xl md:text-4xl font-bold"
           >
-            Hi, this is Aiqi.
+            Hi 👋, this is Aiqi.
           </motion.h1>
           <p className="mt-3 max-w-2xl opacity-80">
             I'm a fourth-year undergraduate student in Engineering Science (Major Engineering Physics, Minor Artificial Intelligence) at the University of Toronto.
