@@ -48,7 +48,7 @@ export function P({ children }: { children: ReactNode }) {
 }
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="px-2.5 py-1 rounded-full text-xs font-medium border border-gray-800 text-gray-900 bg-grey shadow-sm">
+    <span className="px-2.5 py-1 rounded-full text-xs font-medium border border-gray-800 text-gray-900 bg-grey shadow-xs">
       {children}
     </span>
   )
@@ -76,7 +76,7 @@ export function Figure({
 
   return (
     <figure className={`${wrapper} ${className}`}>
-      <Image {...imgProps} className={`rounded-xl shadow ${className}`} />
+      <Image {...imgProps} className={`rounded-xl shadow-sm ${className}`} />
       {caption && (
         <figcaption className="mt-2 text-sm opacity-80 leading-snug">{caption}</figcaption>
       )}
@@ -105,7 +105,7 @@ export function VideoEmbed({
         src={src}
         title={title ?? 'Embedded video'}
         allowFullScreen
-        className="rounded-xl shadow"
+        className="rounded-xl shadow-sm"
       />
     </div>
   )
@@ -115,7 +115,7 @@ export function HtmlEmbed({ html, height = 640 }: { html: string; height?: numbe
   const isFile = html.trim().endsWith('.html') || html.startsWith('/')
 
   return (
-    <div className="my-6 rounded-xl shadow overflow-hidden border">
+    <div className="my-6 rounded-xl shadow-sm overflow-hidden border">
       <iframe
         {...(isFile ? { src: html } : { srcDoc: html })}
         title="Embedded HTML"
@@ -143,7 +143,7 @@ function ProjectHero({
         className={`w-full h-full object-cover object-${objectPosition}`}
       />
       {gradient && (
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-transparent" />
       )}
     </header>
   )
@@ -172,7 +172,7 @@ export function ProjectPage({ config }: { config: ProjectConfig }) {
         <div
           className={
             panel
-              ? 'rounded-2xl border border-gray-200 bg-white/80 backdrop-blur p-6 md:p-8 shadow-lg'
+              ? 'rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 md:p-8 shadow-lg'
               : ''
           }
         >

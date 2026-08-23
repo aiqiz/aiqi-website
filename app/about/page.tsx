@@ -92,12 +92,12 @@ export default function AboutPage() {
           alt="Portrait"
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-transparent" />
       </header>
 
       {/* Bio section */}
       <section className="mx-auto max-w-4xl px-5 md:px-8 -mt-16 relative z-10">
-        <div className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur p-6 md:p-8 shadow-lg">
+        <div className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 md:p-8 shadow-lg">
           <div className="space-y-6">
             {bioSections.map((sec, i) => (
               <section key={i}>
@@ -173,18 +173,18 @@ function MovieGallery({ photos }: { photos: { src: string; alt?: string }[] }) {
   }, [total, playing]);
 
   return (
-    <div className="relative h-[60vh] md:h-[68vh] lg:h-[72vh] bg-black rounded-2xl overflow-hidden shadow-sm">
+    <div className="relative h-[60vh] md:h-[68vh] lg:h-[72vh] bg-black rounded-2xl overflow-hidden shadow-xs">
       <img
         src={photos[idx].src}
         alt={photos[idx].alt}
         className="absolute inset-0 w-full h-full object-contain select-none opacity-0 animate-[fadeIn_800ms_ease_forwards]"
       />
       <div className="absolute inset-0 flex items-center justify-between px-4">
-        <button onClick={prev} className="bg-white/80 px-3 py-1 rounded-full shadow">←</button>
-        <button onClick={next} className="bg-white/80 px-3 py-1 rounded-full shadow">→</button>
+        <button onClick={prev} className="bg-white/80 px-3 py-1 rounded-full shadow-sm">←</button>
+        <button onClick={next} className="bg-white/80 px-3 py-1 rounded-full shadow-sm">→</button>
       </div>
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3">
-        <button onClick={() => setPlaying(!playing)} className="bg-white/80 px-3 py-1 rounded-full shadow">
+        <button onClick={() => setPlaying(!playing)} className="bg-white/80 px-3 py-1 rounded-full shadow-sm">
           {playing ? "Pause" : "Play"}
         </button>
       </div>

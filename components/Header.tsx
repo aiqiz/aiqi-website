@@ -11,7 +11,7 @@ export default function Header() {
   }, [])
 
   return (
-    <header className={`sticky top-0 z-50 bg-bg/80 backdrop-blur ${scrolled ? 'border-b border-black/10' : ''}`}>
+    <header className={`sticky top-0 z-50 bg-bg/80 backdrop-blur-sm ${scrolled ? 'border-b border-black/10' : ''}`}>
       <div className="mx-auto max-w-4xl px-4 py-5 flex items-center justify-between">
         <Link href="/" className="font-bold text-3xl !text-3xl">Aiqi Zhang</Link>
 

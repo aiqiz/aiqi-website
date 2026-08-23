@@ -22,7 +22,7 @@ export default function ProjectsPage() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search by keyword (e.g., domino, VPD, Next.js)"
-        className="mt-4 w-full rounded-xl border border-black/10 bg-white px-4 py-2 outline-none shadow-soft"
+        className="mt-4 w-full rounded-xl border border-black/10 bg-white px-4 py-2 outline-hidden shadow-soft"
       />
       <div className="mt-6 grid gap-4 ">
         {filtered.map((p) => (

@@ -1,6 +1,5 @@
 import { ProjectPage, Figure, HtmlEmbed, VideoEmbed, P, ClearFloats } from '@/components/ProjectKit'
-import dynamic from "next/dynamic";
-const ModelViewer = dynamic(() => import("@/components/ModelViewer"), { ssr: false });
+import ModelViewer from '@/components/ModelViewer'
 
 
 export default function Page() {

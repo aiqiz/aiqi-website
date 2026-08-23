@@ -1,1 +1,70 @@
-@import '../styles/globals.css';
+@import 'tailwindcss';
+
+/* Explicit source roots (in addition to Tailwind v4 auto-detection). */
+@source '../app';
+@source '../components';
+@source '../lib';
+
+/* ---------------------------------------------------------------
+   Design tokens — Tailwind v4 CSS-first config.
+   Replaces the old tailwind.config.ts `theme.extend`.
+   --------------------------------------------------------------- */
+@theme {
+  --color-bg: #f7f7f8; /* light grey page background */
+  --color-fg: #0f172a; /* near-black text */
+  --color-card: #e5e7eb; /* grey for cards */
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.06), 0 2px 8px rgb(0 0 0 / 0.04);
+}
+
+/* Aliases so `var(--bg)` and lib/theme.ts keep working unchanged. */
+:root {
+  --bg: var(--color-bg);
+  --fg: var(--color-fg);
+  --card: var(--color-card);
+}
+
+/* ---------------------------------------------------------------
+   Tailwind v3 -> v4 preflight compatibility.
+   v4 changed three defaults; these restore the v3 behaviour so the
+   existing markup renders identically.
+   --------------------------------------------------------------- */
+@layer base {
+  /* v4 defaults border-color to currentColor; v3 used gray-200. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* v4 defaults placeholder colour to currentColor/50; v3 used gray-400. */
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  /* v4 resets buttons to `cursor: default`; v3 used `pointer`. */
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* utility to allow per-card overrides via CSS vars */
+.card-surface {
+  background: var(--card);
+}

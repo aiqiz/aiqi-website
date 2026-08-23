@@ -67,7 +67,7 @@ export default function ResearchCard({ project }: { project: Research }) {
           {project.tags.map((t) => (
             <span
               key={t}
-              className="rounded-full border border-black/20 bg-white/70 px-2.5 py-1 text-xs font-medium text-gray-900 shadow-sm"
+              className="rounded-full border border-black/20 bg-white/70 px-2.5 py-1 text-xs font-medium text-gray-900 shadow-xs"
             >
               {t}
             </span>
