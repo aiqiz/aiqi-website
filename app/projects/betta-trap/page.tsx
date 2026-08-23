@@ -1,5 +1,12 @@
+import type { Metadata } from 'next'
 import { ProjectPage, Figure, HtmlEmbed, VideoEmbed, P, ClearFloats } from '@/components/ProjectKit'
 import ModelViewer from '@/components/ModelViewer'
+
+export const metadata: Metadata = {
+  title: 'Betta-Trap',
+  description:
+    'Designed Betta-Trap, an inlet stormdrain filter that captures plastics to protect the Great Lakes, developed through prototyping, CAD modeling, and accessibility testing.',
+}
 
 
 export default function Page() {

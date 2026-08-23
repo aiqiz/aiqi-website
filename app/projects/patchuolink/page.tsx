@@ -1,5 +1,12 @@
+import type { Metadata } from 'next'
 import { ProjectPage, Figure, HtmlEmbed, VideoEmbed, P, ClearFloats } from '@/components/ProjectKit'
 import ModelViewer from '@/components/ModelViewer'
+
+export const metadata: Metadata = {
+  title: 'Patchuolink',
+  description:
+    'Developed an IoT prototype for real-time cultivation monitoring, integrating wireless data flow, storage, analysis, and a user-friendly web interface.',
+}
 
 
 export default function Page() {

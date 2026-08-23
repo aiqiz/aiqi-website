@@ -1,16 +1,18 @@
 // components/ProjectKit.tsx
+//
+// Shared frame for every write-up page under /research/* and /projects/*.
+// The exported API is deliberately stable — the archived pages in _archive/
+// use the same helpers, so they can be restored without edits.
 import Image, { ImageProps } from 'next/image'
 import Link from 'next/link'
 import { ReactNode } from 'react'
-import ProjectCard from '@/components/ProjectCard'
-import type { ProjectRow } from '@/lib/projects'
 
-// ---------- Types (aligned to ResearchKit) ----------
+// ---------- Types ----------
 export type ProjectMeta = {
   title: string
   subtitle?: string
-  date?: string // YYYY-MM-DD
-  tags?: string[]
+  date?: string
+  tags?: ReadonlyArray<string>
   supervisor?: string
 }
 
@@ -21,55 +23,50 @@ export type Section = {
   id?: string
   title: string
   body?: ReactNode
-  highlights?: string[]
+  highlights?: ReadonlyArray<ReactNode>
 }
 
 export type ProjectHero = {
   src: string
   alt?: string
-  heightClass?: string   // e.g. 'h-[40vh] md:h-[56vh]'
-  gradient?: boolean     // add dark-to-transparent gradient
+  heightClass?: string
+  gradient?: boolean
   objectPosition?: 'center' | 'top' | 'bottom' | 'left' | 'right'
 }
 
 export interface ProjectConfig {
   meta: {
-    title: string;
-    subtitle?: string;
-    date?: string;
-    tags: ReadonlyArray<string>;
+    title: string
+    subtitle?: string
+    date?: string
+    tags?: ReadonlyArray<string>
     supervisor?: string
-  };
-  sections?: ReadonlyArray<any>;
-  resources?: ReadonlyArray<any>;
-  hero?: any; 
-  panel?: boolean;
+  }
+  sections?: ReadonlyArray<any> // eslint-disable-line @typescript-eslint/no-explicit-any
+  resources?: ReadonlyArray<any> // eslint-disable-line @typescript-eslint/no-explicit-any
+  hero?: any // eslint-disable-line @typescript-eslint/no-explicit-any
+  /** Accepted for backwards compatibility; the glassy panel was retired. */
+  panel?: boolean
 }
 
-// ---------- Shared body class ----------
-const BODY_CLS = 'text-base md:text-lg leading-relaxed';
-
-// ---------- UI atoms (same classes as ResearchKit) ----------
+// ---------- UI atoms ----------
 export function H1({ children }: { children: ReactNode }) {
-  return <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">{children}</h1>
+  return <h1 className="text-3xl sm:text-4xl">{children}</h1>
 }
+
 export function H2({ children }: { children: ReactNode }) {
-  // Reduced from text-xl/md:text-2xl → text-lg/md:text-xl and tightened margins
-  return <h2 className="text-3xl md:text-2xl font-semibold mt-0 mb-2 tracking-tight">{children}</h2>
+  return <h2 className="font-serif text-xl text-strong">{children}</h2>
 }
+
 export function P({ children }: { children: ReactNode }) {
-  return <p className={BODY_CLS}>{children}</p>
+  return <p className="text-muted">{children}</p>
 }
 
 export function Tag({ children }: { children: ReactNode }) {
-  return (
-    <span className="px-2.5 py-1 rounded-full text-xs font-medium border border-gray-800 text-gray-900 bg-grey shadow-xs">
-      {children}
-    </span>
-  )
+  return <span className="text-sm text-faint">{children}</span>
 }
 
-// ---------- Media helpers (identical to ResearchKit) ----------
+// ---------- Media helpers ----------
 export function Figure({
   variant = 'inline',
   caption,
@@ -82,21 +79,17 @@ export function Figure({
 } & Omit<ImageProps, 'className'>) {
   const wrapper =
     variant === 'full'
-      ? 'my-6'
+      ? 'my-8'
       : variant === 'left'
-      ? 'my-4 md:float-left md:mr-4 md:max-w-[45%]'
-      : variant === 'right'
-      ? 'my-4 md:float-right md:ml-4 md:max-w-[45%]'
-      : 'my-4' // inline
+        ? 'my-6 md:float-left md:mr-6 md:max-w-[45%]'
+        : variant === 'right'
+          ? 'my-6 md:float-right md:ml-6 md:max-w-[45%]'
+          : 'my-6'
 
   return (
     <figure className={`${wrapper} ${className}`}>
-      <Image {...imgProps} className={`rounded-xl shadow-sm ${className}`} />
-      {caption && (
-        <figcaption className={`mt-2 ${BODY_CLS} opacity-80`}>
-          {caption}
-        </figcaption>
-      )}
+      <Image {...imgProps} className="w-full rounded-sm border border-line" />
+      {caption && <figcaption className="mt-2 text-sm text-faint">{caption}</figcaption>}
     </figure>
   )
 }
@@ -115,14 +108,14 @@ export function VideoEmbed({
   height?: number
 }) {
   return (
-    <div className="my-6">
+    <div className="my-8 overflow-hidden rounded-sm border border-line">
       <iframe
         width="100%"
         height={height}
         src={src}
         title={title ?? 'Embedded video'}
         allowFullScreen
-        className="rounded-xl shadow-sm"
+        className="block w-full"
       />
     </div>
   )
@@ -132,7 +125,7 @@ export function HtmlEmbed({ html, height = 640 }: { html: string; height?: numbe
   const isFile = html.trim().endsWith('.html') || html.startsWith('/')
 
   return (
-    <div className="my-6 rounded-xl shadow-sm overflow-hidden border">
+    <div className="my-8 overflow-hidden rounded-sm border border-line bg-surface">
       <iframe
         {...(isFile ? { src: html } : { srcDoc: html })}
         title="Embedded HTML"
@@ -144,185 +137,110 @@ export function HtmlEmbed({ html, height = 640 }: { html: string; height?: numbe
   )
 }
 
-// ---------- Hero (identical to ResearchKit) ----------
-function ProjectHero({
-  src,
-  alt = '',
-  heightClass = 'h-[28vh] md:h-[36vh]',  // was 40vh/56vh
-  gradient = true,
-  objectPosition = 'center',
-}: ProjectHero) {
+// ---------- Hero ----------
+const OBJECT_POSITION: Record<string, string> = {
+  center: 'object-center',
+  top: 'object-top',
+  bottom: 'object-bottom',
+  left: 'object-left',
+  right: 'object-right',
+}
+
+function Hero({ src, alt = '', objectPosition = 'center' }: ProjectHero) {
   return (
-    <header className={`relative ${heightClass} w-full overflow-hidden`}>
-      <img
-        src={src}
-        alt={alt}
-        className={`w-full h-full object-cover object-${objectPosition}`}
-      />
-      {gradient && (
-        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-transparent" />
-      )}
-    </header>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      className={`mb-14 aspect-16/9 w-full rounded-sm object-cover ${
+        OBJECT_POSITION[objectPosition] ?? 'object-center'
+      }`}
+    />
   )
 }
 
-// ---------- Row scroller (label as inner subtitle, cards below) ----------
-function RowBlock({ label, description, children, color }: { 
-  label: string; 
-  description?: string; 
-  children: ReactNode; 
-  color: string 
-}) {
-  return (
-    <section className="mb-8">
-      <div className="rounded-2xl border border-black/10 p-3 md:p-4" style={{ background: color }}>
-        <div className="mb-3">
-          <p className="text-lg md:text-xl font-semibold text-gray-800">{label}</p>
-          {description && (
-            <p className="text-sm md:text-base text-gray-600 mt-1">{description}</p>
-          )}
-        </div>
-        <div className="-mx-2 overflow-x-auto pb-2 scrollbar-thin">
-          <div className="mx-2 flex gap-4 snap-x snap-mandatory items-stretch">
-            {children}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-export function ProjectRowsHScroll({ rows }: { rows: ProjectRow[] }) {
-  // soft tints per row label (fallback provided)
-  const palette: Record<string, string> = {
-    'advanced physics lab': '#EEF5FF',
-    'engineering design': '#ecfdeeff',
-    "hackathon": '#FFF7E6',
-  }
-  return (
-    <div className="space-y-10">
-      {rows.map((row) => (
-        <RowBlock
-          key={row.label}
-          label={row.label}
-          description={row.description}   // smaller by design
-          color={palette[row.label.toLowerCase()] ?? '#F8FAFC'}
-        >
-          {row.projects.map((p) => (
-            <ProjectCard key={`${row.label}-${p.slug}`} project={p} />
-          ))}
-        </RowBlock>
-      ))}
-    </div>
-  )
-}
-
-// ---------- Detail page (same frame as ResearchKit; optional for /projects/[slug]) ----------
+// ---------- Detail page ----------
 export function ProjectPage({ config }: { config: ProjectConfig }) {
-  const { meta, sections, resources, hero, panel } = config
+  const { meta, sections, resources, hero } = config
+
   const highlights = (sections ?? []).find(
-    (s) => s.title.toLowerCase() === 'highlights' || s.highlights?.length
+    (s) => s.title?.toLowerCase() === 'highlights' || s.highlights?.length
   )
 
   return (
-    <main className={`mx-auto ${hero ? 'pt-0' : 'py-10'} text-gray-800`}>
-      {/* Hero (optional) */}
-      {hero && <ProjectHero {...hero} />}
+    <article className="mx-auto max-w-page px-6 py-16 sm:px-8 sm:py-24">
+      <Link href="/work" className="text-sm text-faint transition-colors hover:text-fg">
+        ← Work
+      </Link>
 
-      {/* Content container; overlap hero if present */}
-      <div
-        className={`mx-auto w-full px-5 md:px-8 ${hero ? '-mt-36 md:-mt-52 relative z-10' : ''}`}
-      >
-        {/* Optional glassy panel */}
-        <div
-          className={
-            panel
-              ? 'rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-sm p-6 md:p-8 shadow-lg'
-              : ''
-          }
-        >
-          {/* Title block */}
-          <header className="mb-8">
-            <H1>{meta.title}</H1>
-            <div className="mt-3 flex items-center text-base text-gray-800">
-              <span >Supervisor:</span>&nbsp;{meta.supervisor}
-            </div>
-            {meta.subtitle && (
-              // Subtitle uses body sizing but with lower opacity for hierarchy
-              <p className={`mt-2 ${BODY_CLS} opacity-80`}>{meta.subtitle}</p>
-            )}
-            {(meta.date || meta.tags?.length) && (
-              <div className="mt-3 flex justify-between items-center text-sm">
-                {meta.date && <span className="opacity-100">{meta.date}</span>}
-                {meta.tags?.length ? (
-                  <div className="flex flex-wrap gap-2">
-                    {meta.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2.5 py-1 rounded-full text-xs font-medium border border-gray-800 text-gray-900 bg-grey shadow-xs"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            )}
-          </header>
+      <div className="mt-8">{hero && <Hero {...hero} />}</div>
 
-          {/* Highlights callout */}
-          {highlights && (highlights.highlights?.length || highlights.body) && (
-            <section className="mb-8 rounded-2xl border p-4 md:p-5 bg-white/50">
-              <H2>{highlights.title}</H2>
-              {highlights.highlights?.length ? (
-                <ul className={`list-disc ml-5 space-y-1 mt-2 ${BODY_CLS}`}>
-                  {highlights.highlights.map((h: string, i: number) => (
-                    <li key={i} className="">
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="mt-2">
-                  <P>{highlights.body}</P>
-                </div>
-              )}
-            </section>
+      <header className="max-w-measure">
+        <H1>{meta.title}</H1>
+
+        {(meta.date || meta.supervisor) && (
+          <p className="mt-3 text-sm text-faint">
+            {[meta.date, meta.supervisor].filter(Boolean).join(' · ')}
+          </p>
+        )}
+
+        {meta.subtitle && <p className="mt-5 text-lg text-muted">{meta.subtitle}</p>}
+
+        {meta.tags?.length ? (
+          <p className="mt-4 text-sm text-faint">{meta.tags.join(' · ')}</p>
+        ) : null}
+      </header>
+
+      {highlights && (highlights.highlights?.length || highlights.body) ? (
+        <section className="mt-12 max-w-measure border-y border-line py-6">
+          <h2 className="eyebrow">{highlights.title ?? 'Highlights'}</h2>
+          {highlights.highlights?.length ? (
+            <ul className="mt-4 space-y-2 text-muted">
+              {highlights.highlights.map((h: ReactNode, i: number) => (
+                <li
+                  key={i}
+                  className="pl-5 -indent-5 before:mr-3 before:text-faint before:content-['—']"
+                >
+                  {h}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-4 text-muted">{highlights.body}</div>
           )}
+        </section>
+      ) : null}
 
-          {/* Sections (excluding highlights) */}
-          {(sections ?? [])
-            .filter((s) => s !== highlights)
-            .map((s, idx) => (
-              <section key={s.id ?? idx} className="mb-10">
-                <H2>{s.title}</H2>
-                {typeof s.body !== 'undefined' && (
-                  <div className={`mt-2 space-y-4 ${BODY_CLS}`}>{s.body}</div>
-                )}
-              </section>
+      {(sections ?? [])
+        .filter((s) => s !== highlights)
+        .map((s, idx) => (
+          <section key={s.id ?? idx} className="mt-14 max-w-measure">
+            <H2>{s.title}</H2>
+            {typeof s.body !== 'undefined' && (
+              <div className="mt-4 space-y-4 text-muted">{s.body}</div>
+            )}
+          </section>
+        ))}
+
+      {resources?.length ? (
+        <section className="mt-16 max-w-measure border-t border-line pt-6">
+          <h2 className="eyebrow">Resources</h2>
+          <ul className="mt-4 space-y-2">
+            {resources.map((r) => (
+              <li key={r.href}>
+                <a
+                  href={r.href}
+                  className="link"
+                  target={r.href.startsWith('http') ? '_blank' : undefined}
+                  rel={r.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >
+                  {r.label}
+                </a>
+              </li>
             ))}
-
-          {/* Resources */}
-          {resources?.length ? (
-            <section className="mt-10 border-t pt-6">
-              <H2>Resources</H2>
-              <ul className={`mt-2 space-y-1 ${BODY_CLS}`}>
-                {resources.map((r) => (
-                  <li key={r.href}>
-                    <a
-                      href={r.href}
-                      className="underline underline-offset-4 hover:opacity-80"
-                      target={r.href.startsWith('http') ? '_blank' : undefined}
-                    >
-                      {r.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-        </div>
-      </div>
-    </main>
+          </ul>
+        </section>
+      ) : null}
+    </article>
   )
 }

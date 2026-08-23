@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
 import { ProjectPage, Figure, HtmlEmbed, VideoEmbed, P, ClearFloats } from '@/components/ProjectKit'
+
+export const metadata: Metadata = {
+  title: 'Battery Life Prediction',
+  description:
+    'Develop a database framework of battery charging and discharging cycles to support early prediction of battery end-of-life with physics-informed neural network.',
+}
 
 export default function Page() {
   const config = {

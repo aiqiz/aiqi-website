@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
 import { ProjectPage, Figure, HtmlEmbed, VideoEmbed, P, ClearFloats } from '@/components/ProjectKit'
+
+export const metadata: Metadata = {
+  title: 'Satellite Image Segmentation',
+  description:
+    'Built and trained an autoencoder for satellite image segmentation into color-coded land types, with self-tuned architecture and training.',
+}
 
 export default function Page() {
   const config = {

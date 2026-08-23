@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
 import { ProjectPage, Figure, HtmlEmbed, VideoEmbed, P, ClearFloats } from '@/components/ProjectKit'
+
+export const metadata: Metadata = {
+  title: 'Urban Phenology',
+  description:
+    'Using phenocam-based greenness indices to model the influence of urban vegetation phenology on carbon sequestration in city ecosystems.',
+}
 
 export default function Page() {
   const config = {

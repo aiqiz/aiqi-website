@@ -8,7 +8,9 @@ export type Project = {
   time?: string
   tags: string[]
   link?: string
-  github?: string;
+  github?: string
+  /** Route of the write-up page, when one is published. */
+  detail?: string
 }
 
 export type ProjectRow = {
@@ -20,7 +22,8 @@ export type ProjectRow = {
 export const projectRows: ProjectRow[] = [
   {
     label: 'Engineering Design',
-    description: 'Completed various engineering design courses in Years 1 & 2, contributing to team projects primarily as a software programmer or full-stack developer.',
+    description:
+      'Completed various engineering design courses in Years 1 & 2, contributing to team projects primarily as a software programmer or full-stack developer.',
     projects: [
       {
         slug: 'patchuolink',
@@ -29,14 +32,7 @@ export const projectRows: ProjectRow[] = [
         description:
           'Developed an IoT prototype for real-time cultivation monitoring, integrating wireless data flow, storage, analysis, and a user-friendly web interface.',
         tags: ['IoT', 'Cultivation Monitoring'],
-      },
-      {
-        slug: 'betta-trap',
-        title: 'Betta-Trap',
-        time: 'Jan 2023 - Apr 2023',
-        description:
-          'Designed Betta-Trap, an inlet stormdrain filter that captures plastics to protect the Great Lakes, developed through prototyping, CAD modeling, and accessibility testing.',
-        tags: ['CAD', 'Engineering Design Practice'],
+        detail: '/projects/patchuolink',
       },
       {
         slug: 'satellite-image',
@@ -45,15 +41,25 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built and trained an autoencoder for satellite image segmentation into color-coded land types, with self-tuned architecture and training.',
         tags: ['Segmentation Model', 'Autoencoder'],
+        detail: '/projects/satellite-image',
+      },
+      {
+        slug: 'betta-trap',
+        title: 'Betta-Trap',
+        time: 'Jan 2023 - Apr 2023',
+        description:
+          'Designed Betta-Trap, an inlet stormdrain filter that captures plastics to protect the Great Lakes, developed through prototyping, CAD modeling, and accessibility testing.',
+        tags: ['CAD', 'Engineering Design Practice'],
+        detail: '/projects/betta-trap',
       },
     ],
   },
   {
     label: 'Advanced Physics Lab',
-    description: 'Hands-on experiments in diverse areas of physics, each spanning about a month, completed as part of the UofT Advanced Undergraduate Laboratory course in year 3.',
+    description:
+      'Hands-on experiments in diverse areas of physics, each spanning about a month, completed as part of the UofT Advanced Undergraduate Laboratory course in year 3.',
     projects: [
       {
-        slug: 'digital-holography',
         title: 'Digital Holography',
         time: 'May 2025 - Jun 2025',
         supervisor: 'Prof. Ania Harlick',
@@ -62,7 +68,6 @@ export const projectRows: ProjectRow[] = [
         tags: ['Information Optics', 'Manual Write-up'],
       },
       {
-        slug: 'optical-pumping',
         title: 'Optical Pumping in Rubidium',
         time: 'Feb 2025 - Mar 2025',
         supervisor: 'Prof. Robin Marjoribanks',
@@ -71,7 +76,6 @@ export const projectRows: ProjectRow[] = [
         tags: ['Quantum Mechanics', 'Signal Analysis'],
       },
       {
-        slug: 'ozone-measurements',
         title: 'Ozone Measurements',
         time: 'Jan 2025 - Feb 2025',
         supervisor: 'Prof. Debra Wunch',
@@ -80,7 +84,6 @@ export const projectRows: ProjectRow[] = [
         tags: ['Atmospheric Physics', 'Apparatus Calibration'],
       },
       {
-        slug: 'ferroelectric-materials',
         title: 'Ferroelectric Materials and Phase Transitions',
         time: 'Nov 2024 - Dec 2024',
         supervisor: 'Prof. Stephen Julian',
@@ -89,7 +92,6 @@ export const projectRows: ProjectRow[] = [
         tags: ['Crystal Preparation', 'Phase Change'],
       },
       {
-        slug: 'solitons',
         title: 'Solitons',
         time: 'Oct 2024 - Nov 2024',
         supervisor: 'Prof. Kaley Walker',
@@ -101,7 +103,8 @@ export const projectRows: ProjectRow[] = [
   },
   {
     label: 'Hackathon',
-    description: 'Collaborated in various hackathon competitions, driving team projects with contributions as a software programmer and full-stack developer.',
+    description:
+      'Collaborated in various hackathon competitions, driving team projects with contributions as a software programmer and full-stack developer.',
     projects: [
       {
         title: 'CampusPulse',
@@ -111,10 +114,9 @@ export const projectRows: ProjectRow[] = [
           'Built CampusPulse, a Next.js + AWS platform with event filtering, interactive maps, smart scheduling, and an AI chatbot to enhance student engagement.',
         tags: ['Campus Events', 'AI Chatbot'],
         link: 'https://devpost.com/software/campus-pulse',
-        github: 'https://github.com/gracelliu/CampusPulse'
+        github: 'https://github.com/gracelliu/CampusPulse',
       },
       {
-        slug: 'hvac',
         title: 'Regenerative Carbon HVAC System',
         time: 'Feb 2024',
         organization: 'Clarke Prize Environmental Design Challenge',
@@ -129,7 +131,7 @@ export const projectRows: ProjectRow[] = [
         description:
           'CardiacSOS is a wearable AI-powered vest that monitors heart patients in real time and triggers immediate emergency responses.',
         tags: ['AI Healthcare', 'Wearable Technology'],
-        github: 'https://github.com/yijie-04/CardiacSOS'
+        github: 'https://github.com/yijie-04/CardiacSOS',
       },
       {
         title: 'SmartGEMS',
@@ -138,7 +140,7 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built a smart grid model using sensors and AI to optimize renewable energy use and provide interactive sustainability insights.',
         tags: ['Smart Grid', 'Prototyping'],
-        link: 'https://devpost.com/software/smartgems-green-energy-management-system'
+        link: 'https://devpost.com/software/smartgems-green-energy-management-system',
       },
       {
         title: 'OpenSOS',
@@ -148,9 +150,8 @@ export const projectRows: ProjectRow[] = [
           'Built OpenSOS, an AI-driven agent for real-time emergency response using speech recognition, GPT-3.5, and AWS.',
         tags: ['Emergency Response', 'AI Agent'],
         link: 'https://devpost.com/software/opensos-emergency-response-ai-agent',
-        github: 'https://github.com/yijie-04/OpenSOS-Emergency-Response-AI-Agent'
+        github: 'https://github.com/yijie-04/OpenSOS-Emergency-Response-AI-Agent',
       },
     ],
   },
-  
 ]

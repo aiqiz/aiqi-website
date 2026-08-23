@@ -1,4 +1,11 @@
+import type { Metadata } from 'next'
 import { ProjectPage, Figure, HtmlEmbed, VideoEmbed, P, ClearFloats } from '@/components/ProjectKit'
+
+export const metadata: Metadata = {
+  title: 'Domino Chain Effect',
+  description:
+    'Using a 3D reconstruction system based on computer vision to record and analyze the mechanics of toppling domino blocks.',
+}
 
 export default function Page() {
   const config = {

@@ -1,103 +1,80 @@
-'use client'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-
-import { FaLinkedin, FaGithub } from 'react-icons/fa'
-import { SiDevpost } from 'react-icons/si'
+import { research } from '@/lib/research'
 
 export default function Home() {
   return (
-    <div className="space-y-10">
-      <section className="py-6 flex flex-col md:flex-row items-center gap-8">
-        <div className="shrink-0 rounded-2xl border border-black/10 overflow-hidden bg-white">
-          <Image
-            src="/figures/about/me.JPG"
-            alt="Your portrait"
-            width={192}         // 48 * 4 px = 192px
-            height={192}
-            className="object-cover"
-          />
-        </div>
-        <div>
-          <motion.h1
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl md:text-4xl font-bold"
-          >
-            Hi 👋, this is Aiqi.
-          </motion.h1>
-          <p className="mt-3 max-w-2xl opacity-80">
-            I'm a fourth-year undergraduate student in Engineering Science (Major Engineering Physics, Minor Artificial Intelligence) at the University of Toronto.
+    <div className="mx-auto max-w-page px-6 py-16 sm:px-8 sm:py-24">
+      <section className="max-w-measure">
+        <Image
+          src="/figures/about/me.JPG"
+          alt="Aiqi Zhang"
+          width={800}
+          height={800}
+          priority
+          className="mb-10 h-24 w-24 rounded-full object-cover grayscale-[15%]"
+        />
+
+        <h1 className="text-3xl sm:text-4xl">Hi 👋, this is Aiqi.</h1>
+
+        <div className="mt-6 space-y-4 text-muted">
+          <p>
+            I&rsquo;m a fourth-year undergraduate student in Engineering Science (Major
+            Engineering Physics, Minor Artificial Intelligence) at the University of Toronto.
           </p>
-          <div className="mt-3 flex gap-4 text-lg">
-            <Link
-              href="https://www.linkedin.com/in/aiqi-zhang-3821b92aa/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin className="hover:text-blue-600 transition-colors" />
-            </Link>
-            <Link
-              href="https://github.com/aiqiz"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <FaGithub className="hover:text-gray-800 transition-colors" />
-            </Link>
-            <Link
-              href="https://devpost.com/zaqangela804?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Devpost"
-            >
-              <SiDevpost className="hover:text-cyan-500 transition-colors" />
-            </Link>
-          </div>
+          <p>
+            I am passionate about developing engineering tools that reveal hidden patterns in the
+            physical world and advancing our understanding of complex systems through data
+            analysis and modeling.
+          </p>
+          <p>My name is roughly pronounced as I-key.</p>
         </div>
+
+        <p className="mt-8 text-sm text-muted">
+          More in{' '}
+          <Link href="/about" className="link">
+            about
+          </Link>
+          ,{' '}
+          <Link href="/work" className="link">
+            work
+          </Link>
+          , and my{' '}
+          <a
+            href="/files/Aiqi Zhang - CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link"
+          >
+            CV
+          </a>
+          .
+        </p>
       </section>
 
-      <section className="grid gap-6 md:grid-cols-3 ">
-        <Card title="About" desc={'Brief Bio\nResearch Interest\nGeneral Interets'} href="/about" />
-        <Card title="Research" desc={'Environmental Science\nClassical Physics\nData Science\nMachine Learning'} href="/research" />
-        <Card title="Projects" desc={'Engineering Design\nAdvanced Physics Lab\nHackathon'} href="/projects" />
+      <section className="mt-20">
+        <h2 className="eyebrow">Research</h2>
+        <ul className="mt-6 divide-y divide-line border-y border-line">
+          {research.map((r) => (
+            <li key={r.slug} className="py-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                {r.detail ? (
+                  <Link
+                    href={r.detail}
+                    className="font-serif text-lg text-strong transition-opacity hover:opacity-70"
+                  >
+                    {r.title}
+                  </Link>
+                ) : (
+                  <span className="font-serif text-lg text-strong">{r.title}</span>
+                )}
+                <span className="text-sm text-faint">{r.time}</span>
+              </div>
+              <p className="mt-1.5 text-sm text-muted">{r.description}</p>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
-  )
-}
-
-
-function Card({ title, desc, href }: { title: string; desc: string; href: string }) {
-  const lines = desc.split('\n')
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
-      className="rounded-2xl border border-black/10 p-6 bg-white shadow-soft"
-    >
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <Link href={href} aria-label={`Go to ${title}`}>
-          <span className="cursor-pointer hover:underline" aria-hidden>
-            →
-          </span>
-        </Link>
-      </div>
-
-      {/* render desc as list */}
-      <ul className="mt-2 opacity-80 list-disc pl-5 space-y-1">
-        {lines.map((line, i) => (
-          <li key={i}>{line}</li>
-        ))}
-      </ul>
-
-
-    </motion.div>
   )
 }
