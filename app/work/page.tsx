@@ -10,29 +10,12 @@ export const metadata: Metadata = {
     'Research in atmospheric physics and computer vision, plus engineering design projects, physics lab experiments, and hackathon builds.',
 }
 
-function Links({ project }: { project: Project }) {
-  const items = [
-    project.detail && { href: project.detail, label: 'Write-up', external: false },
-    project.link && { href: project.link, label: 'Devpost', external: true },
-    project.github && { href: project.github, label: 'GitHub', external: true },
-  ].filter(Boolean) as { href: string; label: string; external: boolean }[]
-
-  if (items.length === 0) return null
-
+function WriteUp({ project }: { project: Project }) {
+  if (!project.detail) return null
   return (
-    <span className="flex flex-wrap gap-x-4">
-      {items.map((i) => (
-        <Link
-          key={i.label}
-          href={i.href}
-          target={i.external ? '_blank' : undefined}
-          rel={i.external ? 'noopener noreferrer' : undefined}
-          className="link text-sm"
-        >
-          {i.label}
-        </Link>
-      ))}
-    </span>
+    <Link href={project.detail} className="link text-sm">
+      Write-up
+    </Link>
   )
 }
 
@@ -103,7 +86,7 @@ export default function WorkPage() {
                 <p className="mt-2 max-w-measure text-sm text-muted">{p.description}</p>
 
                 <div className="mt-2">
-                  <Links project={p} />
+                  <WriteUp project={p} />
                 </div>
               </li>
             ))}

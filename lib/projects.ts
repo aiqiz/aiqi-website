@@ -7,6 +7,8 @@ export type Project = {
   supervisor?: string
   time?: string
   tags: string[]
+  /** Kept on the type but no longer rendered — the site does not link outward
+   *  from project entries. Previous values are in commit d6d68d96. */
   link?: string
   github?: string
   /** Route of the write-up page, when one is published. */
@@ -113,8 +115,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built CampusPulse, a Next.js + AWS platform with event filtering, interactive maps, smart scheduling, and an AI chatbot to enhance student engagement.',
         tags: ['Campus Events', 'AI Chatbot'],
-        link: 'https://devpost.com/software/campus-pulse',
-        github: 'https://github.com/gracelliu/CampusPulse',
       },
       {
         title: 'Regenerative Carbon HVAC System',
@@ -131,7 +131,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'CardiacSOS is a wearable AI-powered vest that monitors heart patients in real time and triggers immediate emergency responses.',
         tags: ['AI Healthcare', 'Wearable Technology'],
-        github: 'https://github.com/yijie-04/CardiacSOS',
       },
       {
         title: 'SmartGEMS',
@@ -140,7 +139,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built a smart grid model using sensors and AI to optimize renewable energy use and provide interactive sustainability insights.',
         tags: ['Smart Grid', 'Prototyping'],
-        link: 'https://devpost.com/software/smartgems-green-energy-management-system',
       },
       {
         title: 'OpenSOS',
@@ -149,8 +147,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built OpenSOS, an AI-driven agent for real-time emergency response using speech recognition, GPT-3.5, and AWS.',
         tags: ['Emergency Response', 'AI Agent'],
-        link: 'https://devpost.com/software/opensos-emergency-response-ai-agent',
-        github: 'https://github.com/yijie-04/OpenSOS-Emergency-Response-AI-Agent',
       },
     ],
   },
