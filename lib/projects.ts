@@ -29,6 +29,13 @@ export const projectRows: ProjectRow[] = [
       'Completed various engineering design courses in Years 1 & 2, contributing to team projects primarily as a software programmer or full-stack developer.',
     projects: [
       {
+        title: 'Accelerate Quantum Linear Solver with GPU',
+        time: '2025',
+        description:
+          'Investigated GPU-accelerated sparse linear solvers and preconditioning methods to improve the performance of quantum hardware simulations.',
+        tags: ['GPU Computing', 'Sparse Linear Solvers'],
+      },
+      {
         slug: 'patchuolink',
         title: 'Patchuolink',
         time: 'Jan 2024 - Apr 2024',
@@ -63,7 +70,6 @@ export const projectRows: ProjectRow[] = [
       {
         title: 'Optical Pumping in Rubidium',
         time: 'Feb 2025 - Mar 2025',
-        supervisor: 'Prof. Robin Marjoribanks',
         description:
           'Explored optical pumping in rubidium vapor with emphasis on calibration methods and signal analysis.',
         tags: ['Quantum Mechanics', 'Signal Analysis'],
@@ -71,7 +77,6 @@ export const projectRows: ProjectRow[] = [
       {
         title: 'Ozone Measurements',
         time: 'Jan 2025 - Feb 2025',
-        supervisor: 'Prof. Debra Wunch',
         description:
           'Calibrated a Microtops Ozonometer using in-situ measurements, reference datasets, and simulation.',
         tags: ['Atmospheric Physics', 'Apparatus Calibration'],
@@ -79,7 +84,6 @@ export const projectRows: ProjectRow[] = [
       {
         title: 'Ferroelectric Materials and Phase Transitions',
         time: 'Nov 2024 - Dec 2024',
-        supervisor: 'Prof. Stephen Julian',
         description:
           'Studied electrical properties of Rochelle salt crystals through preparation, fabrication, and testing.',
         tags: ['Crystal Preparation', 'Phase Change'],
@@ -87,7 +91,6 @@ export const projectRows: ProjectRow[] = [
       {
         title: 'Solitons',
         time: 'Oct 2024 - Nov 2024',
-        supervisor: 'Prof. Kaley Walker',
         description:
           'Investigated classical soliton wave theory using a shallow water tank with varied boundary conditions.',
         tags: ['Nonlinear Physics', 'Wave Mechanics'],
@@ -103,7 +106,7 @@ export const projectRows: ProjectRow[] = [
       {
         title: 'CampusPulse',
         time: 'Mar 2024',
-        organization: 'Amazon Web Server Design Challenge',
+        organization: 'Amazon Web Services Design Challenge',
         description:
           'Built CampusPulse, a Next.js + AWS platform with event filtering, interactive maps, smart scheduling, and an AI chatbot to enhance student engagement.',
         tags: ['Campus Events', 'AI Chatbot'],

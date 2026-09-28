@@ -17,7 +17,7 @@
   --fg: #16181c;        /* body text */
   --strong: #000000;    /* headings */
   --muted: #63666c;     /* meta, captions, secondary text */
-  --faint: #8b8e94;     /* dates, the quietest text on the page */
+  --faint: #75787e;     /* dates, the quietest text on the page */
   --line: #e3e3e0;      /* hairlines */
   --accent: #1f4e6b;    /* links, marks */
 
@@ -31,7 +31,7 @@
   --fg: #e6e6e3;
   --strong: #ffffff;
   --muted: #a0a3a9;
-  --faint: #797d84;
+  --faint: #92969d;
   --line: #292c32;
   --accent: #8dbcdc;
 }
@@ -59,8 +59,8 @@
     Arial, 'Apple Color Emoji', sans-serif;
 
   /* One measure for running text, one for listings. */
-  --container-measure: 34rem;
-  --container-page: 46rem;
+  --container-measure: 40rem;
+  --container-page: 60rem;
 }
 
 /* ---------------------------------------------------------------

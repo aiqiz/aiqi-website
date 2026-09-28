@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-16">
-      <h2 className="eyebrow">{title}</h2>
+    <section className="mt-20 first-of-type:mt-0">
+      <h2 className="font-serif text-2xl text-strong sm:text-3xl">{title}</h2>
       {children}
     </section>
   )
@@ -33,33 +33,55 @@ function Entry({
   description: string
 }) {
   return (
-    <li className="py-5">
+    <li className="py-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h3 className="font-serif text-base text-strong">{title}</h3>
+        <h3 className="font-serif text-xl text-strong">{title}</h3>
         {time && <span className="text-sm text-faint">{time}</span>}
       </div>
-      {byline && <p className="mt-0.5 text-sm text-faint">{byline}</p>}
-      <p className="mt-2 max-w-measure text-sm text-muted">{description}</p>
+      {byline && <p className="mt-1 text-sm text-muted">{byline}</p>}
+      <p className="mt-3 max-w-measure text-muted">{description}</p>
     </li>
   )
 }
 
-function ProjectGroup({ row, showLabel }: { row: ProjectRow; showLabel: boolean }) {
+/** "Jan 2024 - Apr 2024" -> "2024", "Nov 2024 - Feb 2025" -> "2024–25". */
+function yearOf(time?: string) {
+  const years = [...new Set(time?.match(/\d{4}/g) ?? [])]
+  if (years.length === 0) return undefined
+  if (years.length === 1) return years[0]
+  return `${years[0]}–${years[years.length - 1].slice(2)}`
+}
+
+type Card = { title: string; meta?: string; description: string }
+
+function CardGrid({ cards }: { cards: Card[] }) {
   return (
-    <div className="mt-6">
-      {showLabel && <h3 className="text-sm text-faint">{row.label}</h3>}
-      <ul className="mt-2 divide-y divide-line border-y border-line">
-        {row.projects.map((p) => (
-          <Entry
-            key={p.title}
-            title={p.title}
-            time={p.time}
-            byline={p.organization ?? p.supervisor}
-            description={p.description}
-          />
-        ))}
-      </ul>
-    </div>
+    <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+      {cards.map((c) => (
+        <li key={c.title} className="rounded-md border border-line p-4 sm:last:odd:col-span-2">
+          <h3 className="font-serif text-base leading-snug text-strong">{c.title}</h3>
+          {c.meta && <p className="mt-1 text-xs text-faint">{c.meta}</p>}
+          <p className="mt-2 text-sm leading-relaxed text-muted">{c.description}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function toCards(rows: ProjectRow[], showGroup: boolean): Card[] {
+  return rows.flatMap((row) =>
+    row.projects.map((p) => {
+      const year = yearOf(p.time)
+      const org = p.organization
+      const meta = [
+        showGroup ? row.label : org,
+        // skip the year if the organisation name already contains it
+        org && year && org.includes(year) && !showGroup ? undefined : year,
+      ]
+        .filter(Boolean)
+        .join(' · ')
+      return { title: p.title, meta, description: p.description }
+    })
   )
 }
 
@@ -69,9 +91,7 @@ export default function ExperiencePage() {
 
   return (
     <div className="mx-auto max-w-page px-6 py-16 sm:px-8 sm:py-24">
-      <header className="max-w-measure">
-        <h1 className="text-3xl sm:text-4xl">Past Experience</h1>
-      </header>
+      <h1 className="sr-only">Past Experience</h1>
 
       {/* ---------------- Research (click in for details) ---------------- */}
       <Section title="Research">
@@ -83,32 +103,40 @@ export default function ExperiencePage() {
             ]
               .filter(Boolean)
               .join(' · ')
-
-            const inner = (
-              <>
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-                  <h3 className="font-serif text-xl text-strong">
-                    {r.title}
-                    {r.detail && <span className="ml-2 text-faint">→</span>}
-                  </h3>
-                  <span className="text-sm text-faint">{r.time}</span>
-                </div>
-                {people && <p className="mt-1 text-sm text-muted">{people}</p>}
-                {r.university && <p className="mt-0.5 text-sm text-faint">{r.university}</p>}
-              </>
-            )
+            const o = r.outcome
+            const external = o?.href && !o.href.startsWith('/')
 
             return (
-              <li key={r.slug}>
-                {r.detail ? (
-                  <Link
-                    href={r.detail}
-                    className="block py-6 transition-opacity hover:opacity-70"
-                  >
-                    {inner}
-                  </Link>
-                ) : (
-                  <div className="py-6">{inner}</div>
+              <li key={r.slug} className="py-6">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                  <h3 className="font-serif text-xl text-strong">{r.title}</h3>
+                  <span className="text-sm text-faint">{r.time}</span>
+                </div>
+                <p className="mt-1 text-sm text-muted">
+                  {people && <span>{people}</span>}
+                  {people && r.university && ' · '}
+                  {r.university}
+                </p>
+                <p className="mt-3 max-w-measure text-muted">{r.description}</p>
+                {o && (
+                  <p className="mt-2 text-sm text-muted">
+                    <span className="text-faint">Outcome: </span>
+                    {o.text}
+                    {o.href && o.linkText && (
+                      <>
+                        {' '}
+                        {external ? (
+                          <a href={o.href} target="_blank" rel="noopener noreferrer" className="link">
+                            {o.linkText}
+                          </a>
+                        ) : (
+                          <Link href={o.href} className="link">
+                            {o.linkText}
+                          </Link>
+                        )}
+                      </>
+                    )}
+                  </p>
                 )}
               </li>
             )
@@ -117,7 +145,7 @@ export default function ExperiencePage() {
       </Section>
 
       {/* ---------------- Teaching ---------------- */}
-      <Section title="Teaching Experience">
+      <Section title="Teaching">
         <ul className="mt-6 divide-y divide-line border-y border-line">
           {teaching.map((t) => (
             <Entry
@@ -133,16 +161,12 @@ export default function ExperiencePage() {
 
       {/* ---------------- Undergraduate projects ---------------- */}
       <Section title="Undergraduate Projects">
-        {undergrad.map((row) => (
-          <ProjectGroup key={row.label} row={row} showLabel={undergrad.length > 1} />
-        ))}
+        <CardGrid cards={toCards(undergrad, true)} />
       </Section>
 
       {/* ---------------- Hackathons ---------------- */}
       <Section title="Hackathons">
-        {hackathon.map((row) => (
-          <ProjectGroup key={row.label} row={row} showLabel={false} />
-        ))}
+        <CardGrid cards={toCards(hackathon, false)} />
       </Section>
     </div>
   )

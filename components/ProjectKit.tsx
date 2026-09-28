@@ -199,7 +199,7 @@ export function ProjectPage({ config }: { config: ProjectConfig }) {
               {highlights.highlights.map((h: ReactNode, i: number) => (
                 <li
                   key={i}
-                  className="pl-5 -indent-5 before:mr-3 before:text-faint before:content-['—']"
+                  className="pl-5 -indent-5 before:mr-3 before:text-faint before:content-['–']"
                 >
                   {h}
                 </li>

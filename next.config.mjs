@@ -4,6 +4,8 @@
 const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Next 16 only allows listed qualities; 95 is used for portraits.
+    qualities: [75, 95],
   },
   async redirects() {
     return [
@@ -12,6 +14,7 @@ const nextConfig = {
       { source: '/research', destination: '/experience', permanent: false },
       { source: '/projects', destination: '/experience', permanent: false },
       { source: '/projects/:slug', destination: '/experience', permanent: false },
+      { source: '/research/:slug', destination: '/experience', permanent: false },
     ]
   },
 }

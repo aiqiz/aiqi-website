@@ -2,32 +2,28 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-const BASE = '/figures/about/gallery'
-const COUNT = 47
+type Photo = { src: string; alt: string }
 
-function sequential() {
-  return Array.from({ length: COUNT }, (_, i) => {
-    const idx = String(i + 1).padStart(2, '0')
-    return { src: `${BASE}/photo-${idx}.jpg`, alt: `Nature photograph ${idx}` }
-  })
+function toPhotos(srcs: string[]): Photo[] {
+  return srcs.map((src, i) => ({ src, alt: `Nature photograph ${i + 1}` }))
 }
 
-export default function Gallery() {
+export default function Gallery({ srcs }: { srcs: string[] }) {
   // Start sequential so server and client markup agree, then shuffle after
   // mount. Shuffling during render caused a hydration mismatch.
-  const initial = useMemo(sequential, [])
+  const initial = useMemo(() => toPhotos(srcs), [srcs])
   const [photos, setPhotos] = useState(initial)
   const [idx, setIdx] = useState(0)
   const [playing, setPlaying] = useState(true)
 
   useEffect(() => {
-    const arr = sequential()
+    const arr = toPhotos(srcs)
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[arr[i], arr[j]] = [arr[j], arr[i]]
     }
     setPhotos(arr)
-  }, [])
+  }, [srcs])
 
   const total = photos.length
   const next = useCallback(() => setIdx((n) => (n + 1) % total), [total])
@@ -48,6 +44,7 @@ export default function Gallery() {
     return () => window.removeEventListener('keydown', onKey)
   }, [next, prev])
 
+  if (total === 0) return null
   const current = photos[idx]
   const upcoming = photos[(idx + 1) % total]
 
@@ -70,7 +67,7 @@ export default function Gallery() {
         <span className="tabular-nums">
           {idx + 1} / {total}
         </span>
-        <span className="flex gap-4">
+        <span className="flex gap-4 text-muted">
           <button type="button" onClick={prev} className="transition-colors hover:text-fg">
             Previous
           </button>

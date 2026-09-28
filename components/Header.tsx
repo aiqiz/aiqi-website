@@ -22,7 +22,7 @@ export default function Header() {
           Aiqi Zhang
         </Link>
 
-        <nav className="ml-auto flex items-baseline gap-5 text-sm">
+        <nav className="ml-auto flex items-center gap-5 text-sm">
           {nav.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + '/')
             return (

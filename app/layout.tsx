@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://aiqizhang.org'),
   title: {
     default: 'Aiqi Zhang',
-    template: '%s — Aiqi Zhang',
+    template: '%s – Aiqi Zhang',
   },
   description:
-    'Engineering Science graduate working on atmospheric and carbon cycle modelling, remote sensing, and experimental physics.',
+    'M.S. student in Civil and Environmental Engineering at UC Berkeley, working on atmospheric and Earth system modeling, air quality, and remote sensing.',
 }
 
 // Runs before paint so the correct theme is on <html> and there is no flash.

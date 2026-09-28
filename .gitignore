@@ -10,3 +10,5 @@ out
 
 # scratch: safe to delete
 .legacy_delete_me/
+_originals/
+_snapshot_tmp/

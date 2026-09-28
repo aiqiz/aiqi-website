@@ -27,7 +27,7 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
-      className="-m-2 p-2 text-faint transition-colors hover:text-fg"
+      className="-m-2 flex items-center p-2 text-faint transition-colors hover:text-fg"
     >
       <svg
         width="16"
