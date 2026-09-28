@@ -14,7 +14,7 @@ export default function Home() {
           quality={95}
           priority
           sizes="(min-width: 768px) 15rem, 11rem"
-          className="aspect-4/5 w-48 rounded-2xl bg-surface object-cover shadow-sm ring-1 ring-line md:order-last md:w-full"
+          className="aspect-4/5 w-48 rounded-2xl bg-surface object-cover shadow-sm ring-1 ring-line md:order-last md:mt-16 md:w-full"
         />
         <div className="max-w-measure">
         <h1 className="text-3xl sm:text-4xl">Aiqi Zhang</h1>
