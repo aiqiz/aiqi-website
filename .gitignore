@@ -3,3 +3,12 @@ node_modules
 out
 .turbo
 .vercel
+*.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# scratch: safe to delete
+.legacy_delete_me/
+_originals/
+_snapshot_tmp/

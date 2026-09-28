@@ -7,12 +7,16 @@ export type Project = {
   supervisor?: string
   time?: string
   tags: string[]
+  /** Kept on the type but no longer rendered — the site does not link outward
+   *  from project entries. Previous values are in commit d6d68d96. */
   link?: string
-  github?: string;
+  github?: string
 }
 
 export type ProjectRow = {
   label: string
+  /** Which heading on /experience this group sits under. */
+  section: 'undergrad' | 'hackathon'
   description?: string
   projects: Project[]
 }
@@ -20,8 +24,17 @@ export type ProjectRow = {
 export const projectRows: ProjectRow[] = [
   {
     label: 'Engineering Design',
-    description: 'Completed various engineering design courses in Years 1 & 2, contributing to team projects primarily as a software programmer or full-stack developer.',
+    section: 'undergrad',
+    description:
+      'Completed various engineering design courses in Years 1 & 2, contributing to team projects primarily as a software programmer or full-stack developer.',
     projects: [
+      {
+        title: 'Accelerate Quantum Linear Solver with GPU',
+        time: '2025',
+        description:
+          'Investigated GPU-accelerated sparse linear solvers and preconditioning methods to improve the performance of quantum hardware simulations.',
+        tags: ['GPU Computing', 'Sparse Linear Solvers'],
+      },
       {
         slug: 'patchuolink',
         title: 'Patchuolink',
@@ -31,14 +44,6 @@ export const projectRows: ProjectRow[] = [
         tags: ['IoT', 'Cultivation Monitoring'],
       },
       {
-        slug: 'betta-trap',
-        title: 'Betta-Trap',
-        time: 'Jan 2023 - Apr 2023',
-        description:
-          'Designed Betta-Trap, an inlet stormdrain filter that captures plastics to protect the Great Lakes, developed through prototyping, CAD modeling, and accessibility testing.',
-        tags: ['CAD', 'Engineering Design Practice'],
-      },
-      {
         slug: 'satellite-image',
         title: 'Satellite Image Segmentation',
         time: 'Jan 2024 - Apr 2024',
@@ -46,53 +51,46 @@ export const projectRows: ProjectRow[] = [
           'Built and trained an autoencoder for satellite image segmentation into color-coded land types, with self-tuned architecture and training.',
         tags: ['Segmentation Model', 'Autoencoder'],
       },
+      {
+        slug: 'betta-trap',
+        title: 'Betta-Trap',
+        time: 'Jan 2023 - Apr 2023',
+        description:
+          'Designed Betta-Trap, an inlet stormdrain filter that captures plastics to protect the Great Lakes, developed through prototyping, CAD modeling, and accessibility testing.',
+        tags: ['CAD', 'Engineering Design Practice'],
+      },
     ],
   },
   {
     label: 'Advanced Physics Lab',
-    description: 'Hands-on experiments in diverse areas of physics, each spanning about a month, completed as part of the UofT Advanced Undergraduate Laboratory course in year 3.',
+    section: 'undergrad',
+    description:
+      'Hands-on experiments in diverse areas of physics, each spanning about a month, completed as part of the UofT Advanced Undergraduate Laboratory course in year 3.',
     projects: [
       {
-        slug: 'digital-holography',
-        title: 'Digital Holography',
-        time: 'May 2025 - Jun 2025',
-        supervisor: 'Prof. Ania Harlick',
-        description:
-          'Configured and fine-tuned Spatial Light Modulators for a student lab setup, and authored a experiment manual.',
-        tags: ['Information Optics', 'Manual Write-up'],
-      },
-      {
-        slug: 'optical-pumping',
         title: 'Optical Pumping in Rubidium',
         time: 'Feb 2025 - Mar 2025',
-        supervisor: 'Prof. Robin Marjoribanks',
         description:
           'Explored optical pumping in rubidium vapor with emphasis on calibration methods and signal analysis.',
         tags: ['Quantum Mechanics', 'Signal Analysis'],
       },
       {
-        slug: 'ozone-measurements',
         title: 'Ozone Measurements',
         time: 'Jan 2025 - Feb 2025',
-        supervisor: 'Prof. Debra Wunch',
         description:
           'Calibrated a Microtops Ozonometer using in-situ measurements, reference datasets, and simulation.',
         tags: ['Atmospheric Physics', 'Apparatus Calibration'],
       },
       {
-        slug: 'ferroelectric-materials',
         title: 'Ferroelectric Materials and Phase Transitions',
         time: 'Nov 2024 - Dec 2024',
-        supervisor: 'Prof. Stephen Julian',
         description:
           'Studied electrical properties of Rochelle salt crystals through preparation, fabrication, and testing.',
         tags: ['Crystal Preparation', 'Phase Change'],
       },
       {
-        slug: 'solitons',
         title: 'Solitons',
         time: 'Oct 2024 - Nov 2024',
-        supervisor: 'Prof. Kaley Walker',
         description:
           'Investigated classical soliton wave theory using a shallow water tank with varied boundary conditions.',
         tags: ['Nonlinear Physics', 'Wave Mechanics'],
@@ -101,20 +99,19 @@ export const projectRows: ProjectRow[] = [
   },
   {
     label: 'Hackathon',
-    description: 'Collaborated in various hackathon competitions, driving team projects with contributions as a software programmer and full-stack developer.',
+    section: 'hackathon',
+    description:
+      'Collaborated in various hackathon competitions, driving team projects with contributions as a software programmer and full-stack developer.',
     projects: [
       {
         title: 'CampusPulse',
         time: 'Mar 2024',
-        organization: 'Amazon Web Server Design Challenge',
+        organization: 'Amazon Web Services Design Challenge',
         description:
           'Built CampusPulse, a Next.js + AWS platform with event filtering, interactive maps, smart scheduling, and an AI chatbot to enhance student engagement.',
         tags: ['Campus Events', 'AI Chatbot'],
-        link: 'https://devpost.com/software/campus-pulse',
-        github: 'https://github.com/gracelliu/CampusPulse'
       },
       {
-        slug: 'hvac',
         title: 'Regenerative Carbon HVAC System',
         time: 'Feb 2024',
         organization: 'Clarke Prize Environmental Design Challenge',
@@ -129,7 +126,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'CardiacSOS is a wearable AI-powered vest that monitors heart patients in real time and triggers immediate emergency responses.',
         tags: ['AI Healthcare', 'Wearable Technology'],
-        github: 'https://github.com/yijie-04/CardiacSOS'
       },
       {
         title: 'SmartGEMS',
@@ -138,7 +134,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built a smart grid model using sensors and AI to optimize renewable energy use and provide interactive sustainability insights.',
         tags: ['Smart Grid', 'Prototyping'],
-        link: 'https://devpost.com/software/smartgems-green-energy-management-system'
       },
       {
         title: 'OpenSOS',
@@ -147,10 +142,7 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built OpenSOS, an AI-driven agent for real-time emergency response using speech recognition, GPT-3.5, and AWS.',
         tags: ['Emergency Response', 'AI Agent'],
-        link: 'https://devpost.com/software/opensos-emergency-response-ai-agent',
-        github: 'https://github.com/yijie-04/OpenSOS-Emergency-Response-AI-Agent'
       },
     ],
   },
-  
 ]

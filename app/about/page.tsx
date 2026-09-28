@@ -1,194 +1,112 @@
-"use client";
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import fs from 'node:fs'
+import path from 'node:path'
+import Gallery from '@/components/Gallery'
 
-import React, { useEffect, useMemo, useState } from "react";
+// Every image in public/figures/about/gallery is shown, in random order.
+// To add a photo, just drop it into that folder.
+function galleryPhotos() {
+  const dir = path.join(process.cwd(), 'public/figures/about/gallery')
+  return fs
+    .readdirSync(dir)
+    .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
+    .sort()
+    .map((f) => `/figures/about/gallery/${encodeURIComponent(f)}`)
+}
 
-type BioBody = string | string[] | React.ReactNode | React.ReactNode[];
-type BioSection = {
-  title: string;
-  body?: BioBody;
-  bullets?: string[];
-  chips?: string[];
-};
+export const metadata: Metadata = {
+  title: 'About',
+  description:
+    'About Aiqi Zhang – research interests in atmospheric and Earth system science, computational modeling, and AI, plus a gallery of nature photography.',
+}
 
-function MultiParagraph({ body }: { body?: BioBody }) {
-  if (body == null) return null;
-
-  const paras: React.ReactNode[] = Array.isArray(body)
-    ? body
-    : typeof body === "string"
-    ? body.split(/\n{2,}/)
-    : [body];
-
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="mt-1.5 space-y-3 text-base md:text-lg text-gray-700 leading-relaxed">
-      {paras.map((p, i) => (
-        <p key={i}>{p}</p>
-      ))}
-    </div>
-  );
+    <section className="mt-16 border-t border-line pt-10">
+      <h2 className="font-serif text-2xl text-strong sm:text-3xl">{title}</h2>
+      <div className="mt-6 space-y-4 text-muted">{children}</div>
+    </section>
+  )
 }
 
 export default function AboutPage() {
-  const galleryBasePath = "/figures/about/gallery";
-  const galleryCount = 47;
-  const photos = useMemo(
-    () => makeRandomPhotos(galleryBasePath, galleryCount),
-    [galleryBasePath, galleryCount]
-  );
-
-  const bioSections: Array<BioSection> = [
-    {
-      title: "Hi, my name is Aiqi Zhang.",
-      body: [
-        "I'm a fourth-year undergraduate student in Engineering Science (Major Engineering Physics, Minor Artificial Intelligence) at the University of Toronto.",
-        "I am passionate about developing engineering tools that reveal hidden patterns in the physical world and advancing our understanding of complex systems through data analysis and modeling.",
-        "My name is roughly pronouced as I-key."
-      ],
-    },
-    {
-      title: "Research Interest",
-      bullets: [
-        "Atmospheric and carbon cycle modeling across diverse spatial and temporal scales",
-        "Remote sensing and time-series data processing integrated with machine learning–driven analysis",
-        "Urban environmental systems and their impact on climate and carbon dynamics",
-        "Experimental physics with a focus on data-driven pattern analysis and modeling"
-      ]
-    },
-    {
-      title: "Experience & Past Projects",
-      body: [
-        "As an Engineering Science student, I have gained experience in both engineering design and scientific research through coursework, labs, and summer programs.",
-        "In the first two years of the program, I focused on building core engineering skills through coursework, design projects, and hackathons. In the summer after my second year, I conducted research at Nanyang Technological University (NTU), gaining international academic and laboratory experience. Entering the Engineering Physics program in third year, I engaged in advanced physics topics and laboratory research. During the summer, I worked as a student researcher in the Atmospheric Physics Group under Prof. Debra Wunch and as a lab technician in the Advanced Undergraduate Laboratory, where I contributed to setting up new experiments while continuing my own research.",
-      ],
-    },
-    {
-      title: "Tools I Reach For",
-      body: [
-        <>
-          <span className="underline underline-offset-2">Programming:</span> Python, MATLAB, C, C++, SQL, JavaScript, HTML, CSS, Assembly, Linux
-        </>,
-        <>
-          <span className="underline underline-offset-2">Hardware & CAD Design:</span> Arduino, Raspberry Pi, Fusion 360, SolidWorks
-        </>,
-        <>
-          <span className="underline underline-offset-2">Photography & Video Editing:</span> Final Cut Pro, Adobe Photoshop, Adobe Lightroom
-        </>
-      ],
-    },
-    {
-      title: "General Interests",
-      body: [
-        "I first discovered nature photography as a teenager, and it has remained a lasting passion. Each photo captures a fleeting moment with the creatures I’ve been fortunate to encounter, and I've put together a small gallery for you to explore."
-      ],
-    },
-  ];
-
   return (
-    <main className="min-h-screen bg-white text-gray-800 text-lg md:text-xl">
-      {/* Hero Header with portrait */}
-      <header className="relative h-[40vh] md:h-[56vh] w-full overflow-hidden">
-        <img
-          src="/figures/about/me2.JPG"
-          alt="Portrait"
-          className="w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent" />
-      </header>
-
-      {/* Bio section */}
-      <section className="mx-auto max-w-4xl px-5 md:px-8 -mt-16 relative z-10">
-        <div className="rounded-2xl border border-gray-200 bg-white/80 backdrop-blur p-6 md:p-8 shadow-lg">
-          <div className="space-y-6">
-            {bioSections.map((sec, i) => (
-              <section key={i}>
-                {/* Section title */}
-                <h2 className="text-lg md:text-xl font-medium text-gray-900">{sec.title}</h2>
-
-                {/* Body paragraphs */}
-                <div className="text-base md:text-lg text-gray-700">
-                  <MultiParagraph body={sec.body} />
-                </div>
-
-                {/* Bullets */}
-                {sec.bullets && (
-                  <div className="text-base md:text-lg text-gray-700">
-                    <ul className="mt-2 list-disc pl-5 space-y-1.5 marker:text-base md:marker:text-lg marker:text-gray-700">
-                      {sec.bullets.map((b) => (
-                        <li key={b}>{b}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Chips */}
-                {sec.chips && (
-                  <div className="mt-2 flex flex-wrap gap-2 text-[13px] md:text-sm">
-                    {sec.chips.map((c) => (
-                      <span
-                        key={c}
-                        className="px-2.5 py-1 rounded-full ring-1 ring-gray-200 bg-gray-50"
-                      >
-                        {c}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </section>
-            ))}
-          </div>
+    <div className="mx-auto max-w-page px-6 py-16 sm:px-8 sm:py-24">
+      <div className="grid items-center gap-10 md:grid-cols-[15rem_1fr] md:gap-14">
+        <Image
+            priority
+            src="/figures/about/me4.jpeg"
+            quality={95}
+            alt="Aiqi photographing Lake Louise"
+            width={960}
+            height={1280}
+            sizes="(min-width: 768px) 15rem, 14rem"
+            className="aspect-3/4 w-56 rounded-2xl bg-surface object-cover shadow-sm ring-1 ring-line md:w-full"
+          />
+      <div className="max-w-measure">
+        {/* Lead: no page title, the intro itself opens the page */}
+        <div className="space-y-4 text-lg leading-relaxed text-fg">
+          <p>
+            I&rsquo;m currently an M.S. student in Civil and Environmental Engineering at UC
+            Berkeley, with a background in Engineering Physics and Artificial Intelligence from the
+            University of Toronto.
+          </p>
+          <p>
+            I&rsquo;m broadly interested in understanding complex physical systems through
+            computational modeling, observations, and AI, with a particular focus on atmospheric
+            and Earth system science. Beyond my research, I&rsquo;m also interested in how we
+            communicate science &ndash; how complex scientific ideas can be made
+            intuitive, accessible, and engaging.
+          </p>
+          <p className="text-base text-faint">My name is roughly pronounced as I-key.</p>
         </div>
-      </section>
-
-      {/* Photo gallery */}
-      <section className="mx-auto max-w-6xl px-5 md:px-8 mt-12 pb-20">
-        <MovieGallery photos={photos} />
-      </section>
-    </main>
-  );
-}
-
-function makeRandomPhotos(basePath: string, count: number) {
-  const arr = Array.from({ length: count }, (_, i) => {
-    const idx = String(i + 1).padStart(2, "0");
-    return { src: `${basePath}/photo-${idx}.jpg`, alt: `Photo ${idx}` };
-  });
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-function MovieGallery({ photos }: { photos: { src: string; alt?: string }[] }) {
-  const [idx, setIdx] = useState(0);
-  const total = photos.length;
-  const next = () => setIdx((n) => (n + 1) % total);
-  const prev = () => setIdx((n) => (n - 1 + total) % total);
-  const [playing, setPlaying] = useState(true);
-
-  useEffect(() => {
-    if (!playing) return;
-    const t = setInterval(next, 3000);
-    return () => clearInterval(t);
-  }, [total, playing]);
-
-  return (
-    <div className="relative h-[60vh] md:h-[68vh] lg:h-[72vh] bg-black rounded-2xl overflow-hidden shadow-sm">
-      <img
-        src={photos[idx].src}
-        alt={photos[idx].alt}
-        className="absolute inset-0 w-full h-full object-contain select-none opacity-0 animate-[fadeIn_800ms_ease_forwards]"
-      />
-      <div className="absolute inset-0 flex items-center justify-between px-4">
-        <button onClick={prev} className="bg-white/80 px-3 py-1 rounded-full shadow">←</button>
-        <button onClick={next} className="bg-white/80 px-3 py-1 rounded-full shadow">→</button>
       </div>
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3">
-        <button onClick={() => setPlaying(!playing)} className="bg-white/80 px-3 py-1 rounded-full shadow">
-          {playing ? "Pause" : "Play"}
-        </button>
       </div>
-      <style>{`@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }`}</style>
+
+        <Section title="Research Interests">
+          <dl className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                kind: 'Science',
+                title: 'Atmospheric & Earth System Science',
+                text: 'Land–atmosphere interactions, atmospheric transport and chemistry, air quality, and biogeochemistry.',
+              },
+              {
+                kind: 'Methodology',
+                title: 'Computational Modeling & AI',
+                text: 'Physics-informed modeling, remote sensing, and machine learning to integrate multiscale observations and improve environmental prediction.',
+              },
+              {
+                kind: 'Fundamental Interest',
+                title: 'Complex Physical Systems',
+                text: 'Understanding and predicting complex physical systems by connecting physical mechanisms, observations, and computation.',
+              },
+            ].map((r) => (
+              <div key={r.kind}>
+                <dt>
+                  <span className="text-xs text-faint">{r.kind}</span>
+                  <span className="mt-0.5 block font-serif text-lg text-strong">{r.title}</span>
+                </dt>
+                <dd className="mt-1">{r.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </Section>
+
+        <Section title="Beyond Research">
+          <p>
+            Nature photography has been a part of my life since my teenage years. I&rsquo;m drawn
+            to landscapes, wildlife, and fleeting moments in the natural world, and this gallery
+            brings together some of the places and moments I&rsquo;ve documented along the way.
+            When I&rsquo;m away from research, you&rsquo;ll also find me biking, cooking, or
+            occasionally picking up the guitar or piano.
+          </p>
+        </Section>
+
+      <div className="mt-8">
+        <Gallery srcs={galleryPhotos()} />
+      </div>
     </div>
-  );
+  )
 }

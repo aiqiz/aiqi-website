@@ -1,1 +1,161 @@
-@import '../styles/globals.css';
+@import 'tailwindcss';
+
+/* Class-based dark mode, toggled on <html> by the inline script in layout.tsx. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../app';
+@source '../components';
+@source '../lib';
+
+/* ---------------------------------------------------------------
+   Runtime palette. Utilities reference these through `@theme inline`
+   below, so flipping .dark on <html> reskins the whole site.
+   --------------------------------------------------------------- */
+:root {
+  --bg: #fcfcfb;        /* page */
+  --surface: #ffffff;   /* raised areas: quotes, figures, tags */
+  --fg: #16181c;        /* body text */
+  --strong: #000000;    /* headings */
+  --muted: #63666c;     /* meta, captions, secondary text */
+  --faint: #75787e;     /* dates, the quietest text on the page */
+  --line: #e3e3e0;      /* hairlines */
+  --accent: #1f4e6b;    /* links, marks */
+
+  /* kept for backwards compatibility with lib/theme.ts */
+  --card: var(--surface);
+}
+
+.dark {
+  --bg: #101114;
+  --surface: #17191d;
+  --fg: #e6e6e3;
+  --strong: #ffffff;
+  --muted: #a0a3a9;
+  --faint: #92969d;
+  --line: #292c32;
+  --accent: #8dbcdc;
+}
+
+/* ---------------------------------------------------------------
+   Design tokens. `inline` matters: it inlines the var() reference
+   into each utility so the runtime values above win.
+   --------------------------------------------------------------- */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-strong: var(--strong);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-card: var(--surface);
+}
+
+@theme {
+  --font-serif: ui-serif, 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia,
+    'Times New Roman', serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica,
+    Arial, 'Apple Color Emoji', sans-serif;
+
+  /* One measure for running text, one for listings. */
+  --container-measure: 40rem;
+  --container-page: 60rem;
+}
+
+/* ---------------------------------------------------------------
+   Base
+   --------------------------------------------------------------- */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    color: var(--strong);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 22%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--faint);
+  }
+}
+
+/* ---------------------------------------------------------------
+   A single link treatment, used everywhere in running text.
+   --------------------------------------------------------------- */
+@layer components {
+  .link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in oklab, var(--accent) 40%, transparent);
+    transition: text-decoration-color 150ms ease;
+  }
+  .link:hover {
+    text-decoration-color: var(--accent);
+  }
+
+  /* Small caps label above a section. */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+}

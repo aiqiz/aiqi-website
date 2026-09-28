@@ -1,40 +1,50 @@
 export type Research = {
   slug: string
   title: string
+  /** One-sentence summary. */
   description: string
   university?: string
   supervisor?: string
+  /** Co-authors / collaborators, shown next to the supervisor. */
+  collaborators?: string[]
   time?: string
-  tags: string[]
-  link?: string
+  /** What came out of it. `href` starting with '/' stays on-site. */
+  outcome?: { text: string; linkText?: string; href?: string }
 }
 
-export const projects: Research[] = [
+// Newest first.
+export const research: Research[] = [
+  {
+    slug: 'air-quality-modeling',
+    title: 'Air Quality Modeling',
+    time: 'Sep 2026 - Ongoing',
+    university: 'UC Berkeley, Civil and Environmental Engineering',
+    supervisor: 'Prof. Josh Apte',
+    description:
+      'Exploring reduced-complexity air quality modeling with InMAP, focusing on atmospheric transport, mixing, and efficient tools for air quality assessment and decision-making.',
+  },
   {
     slug: 'urban-phenology',
-    title: 'Urban Phenology',
-    time:'May 2025 - Ongoing',
+    title: 'Urban Carbon Uptake from Cameras & SIF',
+    time: 'May 2025 - Aug 2026',
     university: 'University of Toronto, Physics',
-    supervisor: 'Prof. Debra Wunch',
-    description: 'Using phenocam-based greenness indices to model the influence of urban vegetation phenology on carbon sequestration in city ecosystems.',
-    tags: ['Environmental Science', 'Data-based Modelling', 'Urban Phenology', 'Remote Sensing']
+    supervisor: 'Prof. Debra Wunch & Dr. Natalia Restrepo-Coupe',
+    description:
+      'Integrating city traffic camera networks, downscaled high-resolution satellite SIF, and vegetation modeling to characterize urban vegetation phenology and carbon uptake across the City of Toronto.',
+    outcome: { text: 'See', linkText: 'list of publications', href: '/#publications' },
   },
   {
     slug: 'domino-dynamics',
     title: 'Domino Chain Effect',
-    time:'Sept 2024 - Ongoing',
+    time: 'Sep 2024 - Jun 2026',
     university: 'University of Toronto, Physics',
     supervisor: 'Prof. Ania Harlick & Prof. Boris Braverman',
-    description: 'Using a 3D reconstruction system based on computer vision to record and analyze the mechanics of toppling domino blocks.',
-    tags: ['Advanced Physics Lab', 'Computer Vision Reconstruction', 'Classical Mechanics', 'Non-linear Physics']
+    description:
+      'Using a 3D reconstruction system based on computer vision to record and analyze the mechanics of toppling domino blocks.',
+    outcome: {
+      text: 'A new lab designed for undergraduate students; educational manuscript in preparation.',
+      linkText: 'Code on GitHub',
+      href: 'https://github.com/aiqiz/domino3d_processing_code',
+    },
   },
-  {
-    slug: 'battery-prediction',
-    title: 'Battery Life Prediction',
-    time:'May 2024 - Aug 2024',
-    university: 'Nanyang Technological University, Materials Engineering',
-    supervisor: 'Prof. Xiaodong Chen',
-    description: 'Develop a database framework of battery charging and discharging cycles to support early prediction of battery end-of-life with physics-informed neural network.',
-    tags: ['Database Management', 'Physics-induced neural network', 'Battery End-of-life Definition'],
-  },
-];
+]

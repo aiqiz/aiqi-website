@@ -1,27 +1,56 @@
-'use client'
+"use client"
+
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import ThemeToggle from '@/components/ThemeToggle'
+
+const nav = [
+  { href: '/about', label: 'About' },
+  { href: '/experience', label: 'Past Experience' },
+]
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const pathname = usePathname()
 
   return (
-    <header className={`sticky top-0 z-50 bg-bg/80 backdrop-blur ${scrolled ? 'border-b border-black/10' : ''}`}>
-      <div className="mx-auto max-w-4xl px-4 py-5 flex items-center justify-between">
-        <Link href="/" className="font-bold text-3xl !text-3xl">Aiqi Zhang</Link>
+    <header className="border-b border-line">
+      <div className="mx-auto flex max-w-page flex-wrap items-baseline gap-x-6 gap-y-2 px-6 py-6 sm:px-8">
+        <Link
+          href="/"
+          className="font-serif text-lg text-strong transition-opacity hover:opacity-70"
+        >
+          Aiqi Zhang
+        </Link>
 
-        <nav className="flex items-center gap-6 text-lg">
-          <Link href="/about" className="hover:underline">About</Link>
-          <Link href="/research" className="hover:underline">Research</Link>
-          <Link href="/projects" className="hover:underline">Projects</Link>
-          <Link href="/files/Aiqi Zhang - CV.pdf" target="_blank" rel="noopener noreferrer" className="hover:underline">
+        <nav className="ml-auto flex items-center gap-5 text-sm">
+          {nav.map((item) => {
+            const active = pathname === item.href || pathname.startsWith(item.href + '/')
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? 'page' : undefined}
+                className={
+                  active
+                    ? 'text-fg underline underline-offset-4 decoration-line'
+                    : 'text-muted transition-colors hover:text-fg'
+                }
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+
+          <a
+            href="/files/Aiqi Zhang - CV.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted transition-colors hover:text-fg"
+          >
             CV
-          </Link>
+          </a>
+
+          <ThemeToggle />
         </nav>
       </div>
     </header>
