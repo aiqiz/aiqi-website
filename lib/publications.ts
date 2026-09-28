@@ -34,7 +34,7 @@ export const publications: Publication[] = [
     ],
     venue: 'Physics in Canada',
     venueUrl: 'https://pic-pac.cap.ca/',
-    status: 'Manuscript under review',
+    status: 'Accepted',
   },
   {
     title:
