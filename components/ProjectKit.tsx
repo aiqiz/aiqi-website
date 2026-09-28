@@ -169,8 +169,8 @@ export function ProjectPage({ config }: { config: ProjectConfig }) {
 
   return (
     <article className="mx-auto max-w-page px-6 py-16 sm:px-8 sm:py-24">
-      <Link href="/work" className="text-sm text-faint transition-colors hover:text-fg">
-        ← Work
+      <Link href="/experience" className="text-sm text-faint transition-colors hover:text-fg">
+        ← Past Experience
       </Link>
 
       <div className="mt-8">{hero && <Hero {...hero} />}</div>

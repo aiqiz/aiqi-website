@@ -11,12 +11,12 @@ export type Project = {
    *  from project entries. Previous values are in commit d6d68d96. */
   link?: string
   github?: string
-  /** Route of the write-up page, when one is published. */
-  detail?: string
 }
 
 export type ProjectRow = {
   label: string
+  /** Which heading on /experience this group sits under. */
+  section: 'undergrad' | 'hackathon'
   description?: string
   projects: Project[]
 }
@@ -24,6 +24,7 @@ export type ProjectRow = {
 export const projectRows: ProjectRow[] = [
   {
     label: 'Engineering Design',
+    section: 'undergrad',
     description:
       'Completed various engineering design courses in Years 1 & 2, contributing to team projects primarily as a software programmer or full-stack developer.',
     projects: [
@@ -34,7 +35,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'Developed an IoT prototype for real-time cultivation monitoring, integrating wireless data flow, storage, analysis, and a user-friendly web interface.',
         tags: ['IoT', 'Cultivation Monitoring'],
-        detail: '/projects/patchuolink',
       },
       {
         slug: 'satellite-image',
@@ -43,7 +43,6 @@ export const projectRows: ProjectRow[] = [
         description:
           'Built and trained an autoencoder for satellite image segmentation into color-coded land types, with self-tuned architecture and training.',
         tags: ['Segmentation Model', 'Autoencoder'],
-        detail: '/projects/satellite-image',
       },
       {
         slug: 'betta-trap',
@@ -52,23 +51,15 @@ export const projectRows: ProjectRow[] = [
         description:
           'Designed Betta-Trap, an inlet stormdrain filter that captures plastics to protect the Great Lakes, developed through prototyping, CAD modeling, and accessibility testing.',
         tags: ['CAD', 'Engineering Design Practice'],
-        detail: '/projects/betta-trap',
       },
     ],
   },
   {
     label: 'Advanced Physics Lab',
+    section: 'undergrad',
     description:
       'Hands-on experiments in diverse areas of physics, each spanning about a month, completed as part of the UofT Advanced Undergraduate Laboratory course in year 3.',
     projects: [
-      {
-        title: 'Digital Holography',
-        time: 'May 2025 - Jun 2025',
-        supervisor: 'Prof. Ania Harlick',
-        description:
-          'Configured and fine-tuned Spatial Light Modulators for a student lab setup, and authored a experiment manual.',
-        tags: ['Information Optics', 'Manual Write-up'],
-      },
       {
         title: 'Optical Pumping in Rubidium',
         time: 'Feb 2025 - Mar 2025',
@@ -105,6 +96,7 @@ export const projectRows: ProjectRow[] = [
   },
   {
     label: 'Hackathon',
+    section: 'hackathon',
     description:
       'Collaborated in various hackathon competitions, driving team projects with contributions as a software programmer and full-stack developer.',
     projects: [

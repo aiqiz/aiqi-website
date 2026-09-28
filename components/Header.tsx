@@ -6,7 +6,7 @@ import ThemeToggle from '@/components/ThemeToggle'
 
 const nav = [
   { href: '/about', label: 'About' },
-  { href: '/work', label: 'Work' },
+  { href: '/experience', label: 'Past Experience' },
 ]
 
 export default function Header() {

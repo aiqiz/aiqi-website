@@ -4,6 +4,8 @@ export type Research = {
   description: string
   university?: string
   supervisor?: string
+  /** Co-authors / collaborators, shown next to the supervisor. */
+  collaborators?: string[]
   time?: string
   tags: string[]
   link?: string

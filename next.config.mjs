@@ -7,9 +7,11 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // /research and /projects merged into /work in the Aug 2026 redesign.
-      { source: '/research', destination: '/work', permanent: false },
-      { source: '/projects', destination: '/work', permanent: false },
+      // /work became /experience (Sep 2026). Project write-ups were retired.
+      { source: '/work', destination: '/experience', permanent: false },
+      { source: '/research', destination: '/experience', permanent: false },
+      { source: '/projects', destination: '/experience', permanent: false },
+      { source: '/projects/:slug', destination: '/experience', permanent: false },
     ]
   },
 }
