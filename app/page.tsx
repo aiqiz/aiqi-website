@@ -17,10 +17,10 @@ export default function Home() {
           className="aspect-4/5 w-48 rounded-2xl bg-surface object-cover shadow-sm ring-1 ring-line md:order-last md:w-full"
         />
         <div className="max-w-measure">
-        <h1 className="sr-only">Aiqi Zhang</h1>
+        <h1 className="text-3xl sm:text-4xl">Aiqi Zhang</h1>
 
         {/* Intro */}
-        <div className="space-y-4 text-muted">
+        <div className="mt-6 space-y-4 text-muted">
           <p className="text-lg leading-relaxed text-fg">
             I&rsquo;m a Master&rsquo;s student in{' '}
             <a
